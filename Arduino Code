@@ -1,0 +1,68 @@
+#include <virtuabotixRTC.h>
+virtuabotixRTC Time(6, 7, 8);
+int Hour = (Time.hours);
+int Min = (Time.minutes);
+
+int A = 2;
+int B = 3;
+int C = 4;
+int D = 5;
+int LED = 9;
+int didyou = 0;
+
+
+void setup() {
+  pinMode(A, OUTPUT);
+  pinMode(B, OUTPUT);
+  pinMode(C, OUTPUT);
+  pinMode(D, OUTPUT);
+  Serial.begin(9600);
+
+
+
+}
+
+void loop() {
+  Time.updateTime();
+  Serial.println(Time.hours);
+
+  if ((Time.hours) == 9 && didyou == 0 ) {
+    feed();
+    didyou++;
+
+  }
+  if (didyou == 1) {
+    digitalWrite(LED,HIGH);
+
+  }
+  else{
+    digitalWrite(LED,LOW);
+  }
+  if ((Time.hours) == 1) {
+    didyou = 0;
+  }
+
+
+
+
+}
+
+void feed() {
+  int counter = 0;
+  while (counter < 64) {
+    digitalWrite(A, HIGH);
+    delay(30);
+    digitalWrite(A, LOW);
+    digitalWrite(B, HIGH);
+    delay(30);
+    digitalWrite(B, LOW);
+    digitalWrite(C, HIGH);
+    delay(30);
+    digitalWrite(C, LOW);
+    digitalWrite(D, HIGH);
+    delay(30);
+    digitalWrite(D, LOW);
+    counter++;
+  }
+
+}
